@@ -1,3 +1,5 @@
+-- ©VersaNexusIX --
+-- Instagram : versa_nexusix
 import System.Directory (listDirectory, doesFileExist)
 import System.Process (readProcess)
 import qualified Data.Set as Set
@@ -6,7 +8,6 @@ import System.IO (hFlush, stdout)
 import Text.Printf (printf)
 import Control.Exception (catch, SomeException)
 
--- Definisi warna menggunakan format Hex \x1b (lebih stabil)
 reset   = "\x1b[0m"
 bold    = "\x1b[1m"
 red     = "\x1b[1;31m"
@@ -18,10 +19,11 @@ gray    = "\x1b[1;90m"
 
 printHeader = do
     putStrLn "\x1b[2J\x1b[1;1H"
-    putStrLn $ cyan ++ "╭──────────────────────────────────────────────╮" ++ reset
-    putStrLn $ cyan ++ "│" ++ magenta ++ " (｡•̀ᴗ-)✧    VERSA SECURITY (HSL)         " ++ cyan ++ "   │" ++ reset
-    putStrLn $ cyan ++ "│" ++ gray ++ " ~~~~~~~    Deep Process Inspector        " ++ cyan ++ "   │" ++ reset
-    putStrLn $ cyan ++ "╰──────────────────────────────────────────────╯" ++ reset ++ "\n"
+    putStrLn $ cyan ++ "╭──────────────────────────────────────────────" ++ reset
+    putStrLn $ cyan ++ "│" ++ magenta ++ "     PROC SCANNER      " ++ reset
+    putStrLn $ cyan ++ "│" ++ gray ++ " ~~~~~~~    Deep Process Inspector        " ++ reset
+    putStrLn $ cyan ++ "╰─────────────────────────────────────────────"
+    ++ reset ++ "\n"
 
 showLoading text = do
     putStr $ text ++ " ["
