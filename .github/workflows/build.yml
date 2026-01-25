@@ -29,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          ghc -O2 hunt.hs -o ${{ matrix.output }}
+          ghc -O2 r.hs -o ${{ matrix.output }}
 
       - name: Strip (Linux only)
         if: runner.os == 'Linux'
