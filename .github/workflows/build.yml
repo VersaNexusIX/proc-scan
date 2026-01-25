@@ -12,8 +12,6 @@ jobs:
         include:
           - os: ubuntu-latest
             output: versa-hsl-linux-x86_64
-          - os: ubuntu-24.04-arm
-            output: versa-hsl-linux-aarch64
           - os: windows-latest
             output: versa-hsl-windows-x86_64.exe
 
@@ -28,8 +26,7 @@ jobs:
           ghc-version: '9.2.8'
 
       - name: Build
-        run: |
-          ghc -O2 r.hs -o ${{ matrix.output }}
+        run: ghc -O2 r.hs -o ${{ matrix.output }}
 
       - name: Strip (Linux only)
         if: runner.os == 'Linux'
