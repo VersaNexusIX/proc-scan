@@ -1,0 +1,28 @@
+name: Build HSL Binary
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup GHC
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: '9.2.8'
+
+      - name: Build
+        run: |
+          ghc -O2 hunt.hs -o versa-hsl-linux-x86_64
+          strip versa-hsl-linux-x86_64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: versa-hsl-linux-x86_64
+          path: versa-hsl-linux-x86_64
