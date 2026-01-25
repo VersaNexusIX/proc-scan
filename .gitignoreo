@@ -1,0 +1,6 @@
+*.hi
+*.o
+*.exe
+*.out
+proc-scan
+versa-hsl-*

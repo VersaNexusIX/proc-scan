@@ -1,12 +1,23 @@
-name: Build HSL Binary
+name: Build & Release HSL Binary
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*'
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            output: versa-hsl-linux-x86_64
+          - os: ubuntu-24.04-arm
+            output: versa-hsl-linux-aarch64
+          - os: windows-latest
+            output: versa-hsl-windows-x86_64.exe
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
@@ -18,11 +29,15 @@ jobs:
 
       - name: Build
         run: |
-          ghc -O2 hunt.hs -o versa-hsl-linux-x86_64
-          strip versa-hsl-linux-x86_64
+          ghc -O2 hunt.hs -o ${{ matrix.output }}
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Strip (Linux only)
+        if: runner.os == 'Linux'
+        run: strip ${{ matrix.output }}
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: versa-hsl-linux-x86_64
-          path: versa-hsl-linux-x86_64
+          files: ${{ matrix.output }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
